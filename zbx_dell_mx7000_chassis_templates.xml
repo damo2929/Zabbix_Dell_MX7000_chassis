@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2020-06-19T17:33:51Z</date>
+    <groups>
+        <group>
+            <name>Blade Chassis</name>
+        </group>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template Hardware Dell MX7000 Chassis</template>
+            <name>Template Hardware Dell MX7000 Chassis</name>
+            <templates>
+                <template>
+                    <name>Template App HTTPS Service</name>
+                </template>
+                <template>
+                    <name>Template App SSH Service</name>
+                </template>
+                <template>
+                    <name>Template Module Generic SNMPv2</name>
+                </template>
+                <template>
+                    <name>Template Module Interfaces SNMPv2</name>
+                </template>
+                <template>
+                    <name>Template Module Linux filesystems SNMPv2</name>
+                </template>
+                <template>
+                    <name>Template Module Linux memory SNMPv2</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>Blade Chassis</name>
+                </group>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>CPU</name>
+                </application>
+                <application>
+                    <name>Power Supply</name>
+                </application>
+                <application>
+                    <name>Temperatures</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Interrupts per second</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2021.11.59.0</snmp_oid>
+                    <key>system.cpu.intr[ssRawInterrupts.0]</key>
+                    <history>7d</history>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Load average (1m avg)</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2021.10.1.3[&quot;index&quot;,&quot;1.3.6.1.4.1.2021.10.1.2&quot;, &quot;Load-1&quot;]</snmp_oid>
+                    <key>system.cpu.load.avg1[laLoad.1]</key>
+                    <history>7d</history>
+                    <value_type>FLOAT</value_type>
+                    <description>MIB: UCD-SNMP-MIB</description>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Load average (5m avg)</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2021.10.1.3[&quot;index&quot;,&quot;1.3.6.1.4.1.2021.10.1.2&quot;, &quot;Load-5&quot;]</snmp_oid>
+                    <key>system.cpu.load.avg5[laLoad.2]</key>
+                    <history>7d</history>
+                    <value_type>FLOAT</value_type>
+                    <description>MIB: UCD-SNMP-MIB</description>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Load average (15m avg)</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2021.10.1.3[&quot;index&quot;,&quot;1.3.6.1.4.1.2021.10.1.2&quot;, &quot;Load-15&quot;]</snmp_oid>
+                    <key>system.cpu.load.avg15[laLoad.3]</key>
+                    <history>7d</history>
+                    <value_type>FLOAT</value_type>
+                    <description>MIB: UCD-SNMP-MIB</description>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Context switches per second</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2021.11.60.0</snmp_oid>
+                    <key>system.cpu.switches[ssRawContexts.0]</key>
+                    <history>7d</history>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>CPU</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>CHANGE_PER_SECOND</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>PSU Discovery</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#PSU},.1.3.6.1.4.1.674.10892.6.4.2.1.2.1]</snmp_oid>
+                    <key>discovery[psu]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>PSU $1 installed</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.674.10892.6.4.2.1.4.1.{#SNMPINDEX}</snmp_oid>
+                            <key>PSU_installed[{#SNMPINDEX}]</key>
+                            <delay>1h</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Power Supply</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{str(Present)}=0</expression>
+                                    <name>PSU {#SNMPINDEX} Missing or Removed</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>PSU $1 location</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.674.10892.6.4.2.1.3.1.{#SNMPINDEX}</snmp_oid>
+                            <key>PSU_location[{#SNMPINDEX}]</key>
+                            <delay>1h</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Power Supply</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>PSU $1 power load</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.674.10892.6.4.2.1.7.1.{#SNMPINDEX}</snmp_oid>
+                            <key>PSU_powerload[{#SNMPINDEX}]</key>
+                            <value_type>FLOAT</value_type>
+                            <units>W</units>
+                            <applications>
+                                <application>
+                                    <name>Power Supply</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>PSU $1 power rating</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.674.10892.6.4.2.1.6.1.{#SNMPINDEX}</snmp_oid>
+                            <key>PSU_powerrating[{#SNMPINDEX}]</key>
+                            <delay>1h</delay>
+                            <units>W</units>
+                            <applications>
+                                <application>
+                                    <name>Power Supply</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>PSU $1 power type</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.674.10892.6.4.2.1.5.1.{#SNMPINDEX}</snmp_oid>
+                            <key>PSU_powertype[{#SNMPINDEX}]</key>
+                            <delay>1h</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Power Supply</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>PSU $1 State</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.674.10892.6.4.2.1.8.1.{#SNMPINDEX}</snmp_oid>
+                            <key>PSU_STATUS[{#SNMPINDEX}]</key>
+                            <applications>
+                                <application>
+                                    <name>Power Supply</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&lt;&gt;3</expression>
+                                    <name>PSU {#SNMPINDEX} Failure</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>CPU jumps</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template Hardware Dell MX7000 Chassis</host>
+                        <key>system.cpu.switches[ssRawContexts.0]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>2774A4</color>
+                    <item>
+                        <host>Template Hardware Dell MX7000 Chassis</host>
+                        <key>system.cpu.intr[ssRawInterrupts.0]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>System load</name>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template Hardware Dell MX7000 Chassis</host>
+                        <key>system.cpu.load.avg1[laLoad.1]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>2774A4</color>
+                    <item>
+                        <host>Template Hardware Dell MX7000 Chassis</host>
+                        <key>system.cpu.load.avg5[laLoad.2]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <color>F63100</color>
+                    <item>
+                        <host>Template Hardware Dell MX7000 Chassis</host>
+                        <key>system.cpu.load.avg15[laLoad.3]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
